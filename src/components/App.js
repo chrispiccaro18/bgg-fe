@@ -4,7 +4,7 @@ import { getCollection } from '../services/game-collection-api';
 const App = () => {
   const [username, setUsername] = useState('');
   const [submittedUsername, setSubmittedUsername] = useState('');
-  const [games, setGames] = useState([]);
+  const [game, setGame] = useState('');
 
   const handleChange = event => {
     setUsername(event.target.value);
@@ -18,13 +18,9 @@ const App = () => {
   useEffect(() => {
     if(submittedUsername) {
       getCollection(submittedUsername)
-        .then(collection => setGames(collection));
+        .then(randomGame => setGame(randomGame));
     }
   }, [submittedUsername]);
-
-  const listOfGames = games.map(game => {
-    return <li key={game.name}>{game.name}</li>;
-  });
 
   return (
     <>
@@ -32,7 +28,7 @@ const App = () => {
         <input value={username} onChange={handleChange} />
         <button>Submit</button>
       </form>
-      <ul>{listOfGames}</ul>
+      <p>{game.name}</p>
     </>
   );
 };
