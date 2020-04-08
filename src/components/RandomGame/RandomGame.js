@@ -8,8 +8,8 @@ import {
 
 const RandomGame = () => {
   const [username, setUsername] = useState('');
-  const [submittedUsername, setSubmittedUsername] = useState('');
   const [randomGame, setRandomGame] = useState('');
+  const [error, setError] = useState('');
 
   const handleChange = event => {
     setUsername(event.target.value);
@@ -17,15 +17,22 @@ const RandomGame = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    setSubmittedUsername(username);
-  };
-
-  useEffect(() => {
-    if(submittedUsername) {
-      getCollection(submittedUsername)
-        .then(game => setRandomGame(game));
+    if(username) {
+      getCollection(username)
+        .then(game => {
+          console.log(game)
+          if(game.error) {
+            setRandomGame('')
+            setError(game.error.message)
+          }
+          else {
+            setError('')
+            setRandomGame(game)
+          }
+        });
     }
-  }, [submittedUsername]);
+    else console.log('not fired');
+  };
 
   return (
     <>
@@ -38,6 +45,7 @@ const RandomGame = () => {
         <button>{randomBGButton}</button>
       </form>
       {randomGame && <h2>{randomGame.name}</h2>}
+      {error && <h2>{`Error: ${error}`}</h2>}
     </>
   );
 };
