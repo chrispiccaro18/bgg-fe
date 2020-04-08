@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RandomGame component renders RandomGame 1`] = `
+<Fragment>
+  <h1>
+    Enter Your BoardGameGeek Username to get a random game from your collection.
+  </h1>
+  <form
+    onSubmit={[Function]}
+  >
+    <label>
+      BoardGameGeek Username:
+      <input
+        onChange={[Function]}
+        value=""
+      />
+    </label>
+    <button>
+      Random Game
+    </button>
+  </form>
+</Fragment>
+`;
