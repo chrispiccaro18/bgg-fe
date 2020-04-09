@@ -8,4 +8,3 @@ describe('RandomGame component', () => {
     expect(wrapper).toMatchSnapshot();
   });
 });
-  
