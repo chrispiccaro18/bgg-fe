@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { getCollection } from '../../services/game-collection-api';
 import {
   randomBGPrompt,
@@ -20,14 +20,13 @@ const RandomGame = () => {
     if(username) {
       getCollection(username)
         .then(game => {
-          console.log(game)
           if(game.error) {
-            setRandomGame('')
-            setError(game.error.message)
+            setRandomGame('');
+            setError(game.error.message);
           }
           else {
-            setError('')
-            setRandomGame(game)
+            setError('');
+            setRandomGame(game);
           }
         });
     }
@@ -36,7 +35,7 @@ const RandomGame = () => {
 
   return (
     <>
-    <h1>{randomBGPrompt}</h1>
+      <h1>{randomBGPrompt}</h1>
       <form onSubmit={handleSubmit}>
         <label>
           {randomBGLabel}
@@ -44,7 +43,11 @@ const RandomGame = () => {
         </label>
         <button>{randomBGButton}</button>
       </form>
-      {randomGame && <h2>{randomGame.name}</h2>}
+      {randomGame && 
+      <>
+        <h2>{randomGame.name}</h2>
+        <img src={randomGame.img} />
+      </>}
       {error && <h2>{`Error: ${error}`}</h2>}
     </>
   );
