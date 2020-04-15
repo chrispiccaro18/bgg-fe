@@ -8,6 +8,7 @@ import {
 
 const RandomGame = () => {
   const [username, setUsername] = useState('');
+  const [loading, setLoading] = useState(false);
   const [randomGame, setRandomGame] = useState('');
   const [error, setError] = useState('');
 
@@ -18,8 +19,13 @@ const RandomGame = () => {
   const handleSubmit = event => {
     event.preventDefault();
     if(username) {
+      setError('');
+      setRandomGame('');
+      setLoading(true);
+      
       getCollection(username)
         .then(game => {
+          setLoading(false);
           if(game.error) {
             setRandomGame('');
             setError(game.error.message);
@@ -48,6 +54,7 @@ const RandomGame = () => {
         <h2>{randomGame.name}</h2>
         <img src={randomGame.img} />
       </>}
+      {loading && <h2>Loading</h2>}
       {error && <h2>{`Error: ${error}`}</h2>}
     </>
   );
